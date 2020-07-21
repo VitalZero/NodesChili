@@ -1,18 +1,16 @@
 #include <iostream>
 #include "Node.h"
 
-Node* PrintNode(const Node* node, int index )
+Node* PrintNode( Node* node, int index )
 {
 	if ( node )
 	{
 		if ( node->GetType() == Node::NodeType::Branch )
 		{
-			// It's a branch!
 			BranchNode* branch = (BranchNode*)node;
-
+			// It's a branch!
 			std::cout << branch->GetName() << ", " << branch->GetTypeName()
 				<< ": $ " << branch->GetTotal() << std::endl;
-
 			if ( branch->Size() > 0 )
 			{
 				for ( int i = 0; i < branch->Size(); ++i )
