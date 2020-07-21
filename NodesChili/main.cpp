@@ -7,21 +7,24 @@ Node* PrintNode( Node* node, int index )
 	{
 		if ( node->GetType() == NodeType::Branch )
 		{
-			std::cout << node->GetName() << ", " << node->GetTypeName() << std::endl;
+			// It's a branch!
+			std::cout << node->GetName() << ", " << node->GetTypeName() 
+				<< ": $ " << node->GetTotal() << std::endl;
 			if ( node->Size() > 0 )
 			{
 				for ( int i = 0; i < node->Size(); ++i )
 				{
 					PrintNode( node->GetChild( i ), i );
 				}
-
-				return nullptr;
 			}
 			return nullptr;
 		}
 		else
 		{
-			std::cout << node->GetName() << ": $" << node->GetTotal() << std::endl;
+			// It's a node, for sure
+			LeafNode* lNode = (LeafNode*)node;
+
+			std::cout << lNode->GetData() << " / " << lNode->GetName()  << ": $" << lNode->GetTotal() << std::endl;
 			return nullptr;
 		}
 	}
@@ -41,12 +44,14 @@ int main()
 	category->AddChild( std::move( subCategory ) );
 
 	subCategory = std::make_unique<BranchNode>( "Second subcategory" );
-	item = std::make_unique<LeafNode>( "22413", 6000, "some data 1" );
-
+	item = std::make_unique<LeafNode>( "22413", 6000, "some data 1 from cat 2" );
 	subCategory->AddChild( std::move( item ) );
+	item = std::make_unique<LeafNode>( "22520", 7000, "some data 2 from cat 2" );
+	subCategory->AddChild( std::move( item ) );
+
 	category->AddChild( std::move( subCategory ) );
 	subCategory = std::make_unique<BranchNode>( "Third subcategory" );
-	item = std::make_unique<LeafNode>( "22421", 3114, "some data 2" );
+	item = std::make_unique<LeafNode>( "22421", 3114, "some data 1 from cat 3" );
 	subCategory->AddChild( std::move( item ) );
 	category->AddChild( std::move( subCategory ) );
 	root->AddChild( std::move( category ) );
