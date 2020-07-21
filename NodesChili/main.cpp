@@ -21,7 +21,7 @@ Node* PrintNode( Node* node, int index )
 		}
 		else
 		{
-			// It's a node, for sure
+			// It's a leaf, for sure
 			LeafNode* lNode = (LeafNode*)node;
 
 			std::cout << lNode->GetData() << " / " << lNode->GetName()  << ": $" << lNode->GetTotal() << std::endl;
