@@ -3,10 +3,11 @@
 #include <memory>
 #include <string>
 
-enum class NodeType { Branch, Leaf };
-
 class Node
 {
+public:
+	enum class NodeType { Branch, Leaf };
+
 public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
 	virtual Node* GetChild( int index ) const { return nullptr; }
