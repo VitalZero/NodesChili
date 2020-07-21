@@ -3,14 +3,21 @@
 
 Node* PrintNode( Node* node, int index )
 {
-	index--;
 	if ( node )
 	{
 		if ( node->GetType() == NodeType::Branch )
 		{
 			std::cout << node->GetName() << ", " << node->GetTypeName() << std::endl;
+			if ( node->Size() > 0 )
+			{
+				for ( int i = 0; i < node->Size(); ++i )
+				{
+					PrintNode( node->GetChild( i ), i );
+				}
 
-			return PrintNode( node->GetChild( index + 1 ), index + 1 );
+				return nullptr;
+			}
+			return nullptr;
 		}
 		else
 		{
@@ -26,21 +33,20 @@ Node* PrintNode( Node* node, int index )
 
 int main()
 {
-	std::unique_ptr<Node> root = std::make_unique<BranchNode>( "CASA CLUB" );
-	std::unique_ptr<Node> category = std::make_unique<BranchNode>( "AGROQUIMICOS" );
-	std::unique_ptr<Node> subCategory;
+	std::unique_ptr<Node> root = std::make_unique<BranchNode>( "THIS IS THE ROOT" );
+	std::unique_ptr<Node> category = std::make_unique<BranchNode>( "FIRST CATEGORY" );
+	std::unique_ptr<Node> subCategory = std::make_unique<BranchNode>( "First subcategory" );
 	std::unique_ptr<Node> item;
 
-	subCategory == std::make_unique<BranchNode>( "Fertilizantes" );
 	category->AddChild( std::move( subCategory ) );
 
-	subCategory = std::make_unique<BranchNode>( "Plantas, pasto" );
-	item = std::make_unique<LeafNode>( "22413", 6000, "Ipomeas y begonias" );
+	subCategory = std::make_unique<BranchNode>( "Second subcategory" );
+	item = std::make_unique<LeafNode>( "22413", 6000, "some data 1" );
 
 	subCategory->AddChild( std::move( item ) );
 	category->AddChild( std::move( subCategory ) );
-	subCategory = std::make_unique<BranchNode>( "Riego" );
-	item = std::make_unique<LeafNode>( "22421", 3114, "Rotores T5, aspersores" );
+	subCategory = std::make_unique<BranchNode>( "Third subcategory" );
+	item = std::make_unique<LeafNode>( "22421", 3114, "some data 2" );
 	subCategory->AddChild( std::move( item ) );
 	category->AddChild( std::move( subCategory ) );
 	root->AddChild( std::move( category ) );
