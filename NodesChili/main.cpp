@@ -1,23 +1,27 @@
 #include <iostream>
 #include "Node.h"
 
-Node* PrintNode( Node* node, int index )
+Node* PrintNode(const Node* node, int index )
 {
 	if ( node )
 	{
 		if ( node->GetType() == NodeType::Branch )
 		{
-			BranchNode* branch = (BranchNode*)node;
 			// It's a branch!
+			BranchNode* branch = (BranchNode*)node;
+
 			std::cout << branch->GetName() << ", " << branch->GetTypeName()
 				<< ": $ " << branch->GetTotal() << std::endl;
+
 			if ( branch->Size() > 0 )
 			{
 				for ( int i = 0; i < branch->Size(); ++i )
 				{
+					std::cout << "\t\treturn node and print next\n";
 					PrintNode( branch->GetChild( i ), i );
 				}
 			}
+			std::cout << "\t\treturn null after for loop\n";
 			return nullptr;
 		}
 		else
@@ -26,11 +30,13 @@ Node* PrintNode( Node* node, int index )
 			LeafNode* leaf = (LeafNode*)node;
 
 			std::cout << leaf->GetData() << " / " << leaf->GetName()  << ": $" << leaf->GetTotal() << std::endl;
+			std::cout << "\t\treturn null after leaf\n";
 			return nullptr;
 		}
 	}
 	else
 	{
+		std::cout << "\t\treturn null because node is null\n";
 		return nullptr;
 	}
 }
