@@ -11,7 +11,6 @@ public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
 	virtual Node* GetChild( int index ) const { return nullptr; }
 	virtual int GetTotal() = 0;
-	virtual int Size() const = 0;
 	std::string GetName() const { return name; }
 	std::string GetTypeName() const { return typeName[(int)type]; }
 	NodeType GetType() const { return type; }
@@ -29,7 +28,7 @@ public:
 	void AddChild( std::unique_ptr<Node> node );
 	int GetTotal() override;
 	Node* GetChild( int index ) const { return children.at( index ).get(); }
-	int Size() const override { return children.size(); }
+	int Size() const { return children.size(); }
 
 private:
 	std::vector< std::unique_ptr<Node> > children;
@@ -41,7 +40,6 @@ public:
 	LeafNode( const std::string& name, int total, const std::string& data );
 	int GetTotal() override { return total; }
 	std::string GetData() const { return data; }
-	int Size() const override { return data.size(); }
 
 private:
 	int total;

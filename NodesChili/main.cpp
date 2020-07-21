@@ -7,14 +7,15 @@ Node* PrintNode( Node* node, int index )
 	{
 		if ( node->GetType() == NodeType::Branch )
 		{
+			BranchNode* branch = (BranchNode*)node;
 			// It's a branch!
-			std::cout << node->GetName() << ", " << node->GetTypeName() 
-				<< ": $ " << node->GetTotal() << std::endl;
-			if ( node->Size() > 0 )
+			std::cout << branch->GetName() << ", " << branch->GetTypeName()
+				<< ": $ " << branch->GetTotal() << std::endl;
+			if ( branch->Size() > 0 )
 			{
-				for ( int i = 0; i < node->Size(); ++i )
+				for ( int i = 0; i < branch->Size(); ++i )
 				{
-					PrintNode( node->GetChild( i ), i );
+					PrintNode( branch->GetChild( i ), i );
 				}
 			}
 			return nullptr;
@@ -22,9 +23,9 @@ Node* PrintNode( Node* node, int index )
 		else
 		{
 			// It's a leaf, for sure
-			LeafNode* lNode = (LeafNode*)node;
+			LeafNode* leaf = (LeafNode*)node;
 
-			std::cout << lNode->GetData() << " / " << lNode->GetName()  << ": $" << lNode->GetTotal() << std::endl;
+			std::cout << leaf->GetData() << " / " << leaf->GetName()  << ": $" << leaf->GetTotal() << std::endl;
 			return nullptr;
 		}
 	}
