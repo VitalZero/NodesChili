@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Node.h"
 
-Node* PrintNode(const Node* node, int index )
+Node* PrintNode(const Node* node)
 {
 	if ( node )
 	{
@@ -19,7 +19,7 @@ Node* PrintNode(const Node* node, int index )
 				{
 					std::cout << "..";
 					//std::cout << "\t\treturn branch and print next\n";
-					PrintNode( branch->GetChild( i ), i );
+					PrintNode( branch->GetChild( i ));
 				}
 			}
 			//std::cout << "\t\treturn null after for loop\n";
@@ -74,7 +74,7 @@ int main()
 	category->AddChild( std::move( subCategory ) );
 	root->AddChild( std::move( category ) );
 
-	PrintNode( root.get(), 0 );
+	PrintNode( root.get());
 	// std::cout << root->GetName() << "->total: " << root->GetTotal() << std::endl;
 
 	// Node* tmpNode = root->GetChild(0); // AGROQUIMICOS
