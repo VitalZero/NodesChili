@@ -20,7 +20,6 @@ Node* Node::Print( )
 		if ( GetType() == NodeType::Branch )
 		{
 			// It's a branch!
-
 			std::cout << GetName() << ", " << GetTypeName()
 				<< ": $ " << GetTotal() << std::endl;
 
@@ -39,7 +38,6 @@ Node* Node::Print( )
 		else
 		{
 			// It's a leaf!
-
 			std::cout << ".." << ((LeafNode*)this)->GetData() << " / " << ((LeafNode*)this)->GetName() 
 				<< ": $" << ((LeafNode*)this)->GetTotal() << std::endl;
 

@@ -71,17 +71,19 @@ int main()
 	category->AddChild( std::move( subCategory ) );
 	root->AddChild( std::move( category ) );
 
+	std::cout << "\nUsando la funcion externa:" << std::endl;
+
 	PrintTree( root.get());
 
-	std::cout << "\nAhora sin manos!:" << std::endl;
+	std::cout << "\nCon la funcion propia de la clase:" << std::endl;
 
 	root->Print();
 
-	std::cout << "\nAhora desde el primer descendiente:" << std::endl;
+	std::cout << "\nAhora desde el primer descendiente, funcion miembro:" << std::endl;
 
 	root->Child( 0 )->Print();
 
-	std::cout << "\nAhora desde el segundo descendiente:" << std::endl;
+	std::cout << "\nAhora desde el segundo descendiente, funcion miembro:" << std::endl;
 
 	root->Child( "second category" )->Print();
 
