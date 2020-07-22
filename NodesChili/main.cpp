@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Node.h"
 
-Node* PrintNode(const Node* node)
+Node* PrintTree(const Node* node)
 {
 	if ( node )
 	{
@@ -18,20 +18,20 @@ Node* PrintNode(const Node* node)
 				for ( size_t i = 0; i < branch->Size(); ++i )
 				{
 					std::cout << "..";
-					//std::cout << "\t\treturn branch and print next\n";
-					PrintNode( branch->GetChild( i ));
+
+					PrintTree( branch->Child( i ));
 				}
 			}
-			//std::cout << "\t\treturn null after for loop\n";
+
 			return nullptr;
 		}
 		else
 		{
-			// It's a leaf, for sure
+			// It's a leaf!
 			LeafNode* leaf = (LeafNode*)node;
 
 			std::cout << ".." << leaf->GetData() << " / " << leaf->GetName()  << ": $" << leaf->GetTotal() << std::endl;
-			//std::cout << "\t\treturn null after leaf\n";
+
 			return nullptr;
 		}
 	}
@@ -71,45 +71,15 @@ int main()
 	category->AddChild( std::move( subCategory ) );
 	root->AddChild( std::move( category ) );
 
-	PrintNode( root.get());
+	PrintTree( root.get());
 
-	Node* test = root->operator[]( "THIS IS THE ROOT" );
-	Node* another = root->operator[]("FIRST CATEGORY");
+	std::cout << "\nAhora con print:" << std::endl;
 
-	// std::cout << root->GetName() << "->total: " << root->GetTotal() << std::endl;
+	root->Print(root.get());
 
-	// Node* tmpNode = root->GetChild(0); // AGROQUIMICOS
-	// std::cout << "\t";
-	// std::cout << tmpNode->GetName() << "->total: " << tmpNode->GetTotal() << std::endl;
-	// // std::cout << "Name: " << tmpNode->GetName() << ", type: " <<
-	// //   tmpNode->GetTypeName() << ", total: " << tmpNode->GetTotal() << std::endl;
+	std::cout << "\nAhora sin manos!:" << std::endl;
 
-	// tmpNode = tmpNode->GetChild(0); // Plantas, pasto
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << tmpNode->GetName() << "->total: " << tmpNode->GetTotal() << std::endl;
-
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << tmpNode->GetChild(0)->GetName() << "->total: " << tmpNode->GetChild(0)->GetTotal() <<
-	//   " |-> " << reinterpret_cast<LeafNode*>(tmpNode->GetChild(0))->GetData() << std::endl;
-
-	// tmpNode = root->GetChild(0)->GetChild(1); // Riego
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << tmpNode->GetName() << "->total: " << tmpNode->GetTotal() << std::endl;
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << "\t";
-	// std::cout << tmpNode->GetChild(0)->GetName() << "->total: " << tmpNode->GetChild(0)->GetTotal() <<
-	//   " |-> " << reinterpret_cast<LeafNode*>(tmpNode->GetChild(0))->GetData() << std::endl;
-
-	// LeafNode* leafRef = reinterpret_cast<LeafNode*>(root->GetChild(0)->GetChild(0)->GetChild(0));
-
-	// std::cout << leafRef->GetName() << std::endl;
-	// std::cout << leafRef->GetTotal() << std::endl;
-	// std::cout << leafRef->GetData() << std::endl;
+	root->Print();
 
 	std::cin.get();
 

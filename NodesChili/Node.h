@@ -10,12 +10,16 @@ public:
 
 public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
-	virtual Node* GetChild( size_t index ) const { return nullptr; }
+	virtual Node* Child( size_t index ) const { return nullptr; }
+	virtual Node* Child( const std::string& name ) { return nullptr; }
 	virtual int GetTotal() = 0;
+
+public:
 	std::string GetName() const { return name; }
 	std::string GetTypeName() const { return typeName[(int)type]; }
 	NodeType GetType() const { return type; }
-	virtual Node* operator[]( const std::string& name ) { return nullptr; }
+	Node* Print( const Node* node );
+	Node* Print();
 
 protected:
 	NodeType type;
@@ -29,9 +33,9 @@ public:
 	BranchNode( const std::string& name );
 	void AddChild( std::unique_ptr<Node> node );
 	int GetTotal() override;
-	Node* GetChild( size_t index ) const { return children.at( index ).get(); }
+	Node* Child( size_t index ) const override { return children.at( index ).get(); }
+	Node* Child( const std::string& name ) override;
 	size_t Size() const { return children.size(); }
-	Node* operator[]( const std::string& name ) override;
 
 private:
 	std::vector< std::unique_ptr<Node> > children;
