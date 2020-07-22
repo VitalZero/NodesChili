@@ -18,7 +18,6 @@ public:
 	std::string GetName() const { return name; }
 	std::string GetTypeName() const { return typeName[(int)type]; }
 	NodeType GetType() const { return type; }
-	Node* Print( const Node* node );
 	Node* Print();
 
 protected:
