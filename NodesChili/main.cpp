@@ -15,7 +15,7 @@ Node* PrintNode(const Node* node)
 
 			if ( branch->Size() > 0 )
 			{
-				for ( int i = 0; i < branch->Size(); ++i )
+				for ( size_t i = 0; i < branch->Size(); ++i )
 				{
 					std::cout << "..";
 					//std::cout << "\t\treturn branch and print next\n";
@@ -35,11 +35,8 @@ Node* PrintNode(const Node* node)
 			return nullptr;
 		}
 	}
-	else
-	{
-		//std::cout << "\t\treturn null because node is null\n";
-		return nullptr;
-	}
+
+	return nullptr;
 }
 
 int main()

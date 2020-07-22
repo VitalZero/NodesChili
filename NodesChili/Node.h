@@ -10,7 +10,7 @@ public:
 
 public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
-	virtual Node* GetChild( int index ) const { return nullptr; }
+	virtual Node* GetChild( size_t index ) const { return nullptr; }
 	virtual int GetTotal() = 0;
 	std::string GetName() const { return name; }
 	std::string GetTypeName() const { return typeName[(int)type]; }
@@ -28,8 +28,8 @@ public:
 	BranchNode( const std::string& name );
 	void AddChild( std::unique_ptr<Node> node );
 	int GetTotal() override;
-	Node* GetChild( int index ) const { return children.at( index ).get(); }
-	int Size() const { return children.size(); }
+	Node* GetChild( size_t index ) const { return children.at( index ).get(); }
+	size_t Size() const { return children.size(); }
 
 private:
 	std::vector< std::unique_ptr<Node> > children;
