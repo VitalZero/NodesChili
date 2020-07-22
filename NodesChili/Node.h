@@ -15,6 +15,7 @@ public:
 	std::string GetName() const { return name; }
 	std::string GetTypeName() const { return typeName[(int)type]; }
 	NodeType GetType() const { return type; }
+	virtual Node* operator[]( const std::string& name ) { return nullptr; }
 
 protected:
 	NodeType type;
@@ -30,6 +31,7 @@ public:
 	int GetTotal() override;
 	Node* GetChild( size_t index ) const { return children.at( index ).get(); }
 	size_t Size() const { return children.size(); }
+	Node* operator[]( const std::string& name ) override;
 
 private:
 	std::vector< std::unique_ptr<Node> > children;

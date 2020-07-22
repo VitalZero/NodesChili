@@ -1,5 +1,16 @@
 #include <numeric>
+#include <cctype>
+#include <algorithm>
 #include "Node.h"
+
+std::string ToUpper( std::string s )
+{
+	std::transform( s.begin(), s.end(), s.begin(), []( unsigned char c ) {
+		return std::toupper( c );
+		} );
+
+	return s;
+}
 
 // BranchNode
 BranchNode::BranchNode( const std::string& name )
@@ -19,6 +30,19 @@ int BranchNode::GetTotal()
 		[]( int accumulator, auto& c ) {
 			return accumulator + c->GetTotal();
 		} );
+}
+
+Node* BranchNode::operator[]( const std::string & name )
+{
+	for ( const auto& child : children )
+	{
+		if ( ToUpper( child->GetName() ) == ToUpper( name ) )
+		{
+			return child.get();
+		}
+	}
+
+	return nullptr;
 }
 
 // LeafNode

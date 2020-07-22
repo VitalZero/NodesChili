@@ -72,6 +72,10 @@ int main()
 	root->AddChild( std::move( category ) );
 
 	PrintNode( root.get());
+
+	Node* test = root->operator[]( "THIS IS THE ROOT" );
+	Node* another = root->operator[]("FIRST CATEGORY");
+
 	// std::cout << root->GetName() << "->total: " << root->GetTotal() << std::endl;
 
 	// Node* tmpNode = root->GetChild(0); // AGROQUIMICOS
