@@ -73,13 +73,17 @@ int main()
 
 	PrintTree( root.get());
 
-	std::cout << "\nAhora con print:" << std::endl;
-
-	root->Print(root.get());
-
 	std::cout << "\nAhora sin manos!:" << std::endl;
 
 	root->Print();
+
+	std::cout << "\nAhora desde el primer descendiente:" << std::endl;
+
+	root->Child( 0 )->Print();
+
+	std::cout << "\nAhora desde el segundo descendiente:" << std::endl;
+
+	root->Child( "second category" )->Print();
 
 	std::cin.get();
 
