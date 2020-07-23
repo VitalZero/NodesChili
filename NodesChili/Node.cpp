@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "Node.h"
 #include <iostream>
+#include <sstream>
 
 std::string ToUpper( std::string s )
 {
@@ -79,6 +80,37 @@ Node * BranchNode::Child( const std::string & name )
 	}
 
 	return nullptr;
+}
+
+Node * BranchNode::URI( const std::string & path )
+{
+	std::istringstream iss(path);
+
+	std::string tmp;
+	std::vector<std::string> tokens;
+	while ( std::getline( iss, tmp, '.' ) )
+	{
+		tokens.push_back( std::move( tmp ) );
+	}
+
+	if ( tokens.size() == 0 )
+	{
+		return nullptr;
+	}
+
+	Node* node = nullptr;
+
+	for ( auto& t : tokens )
+	{
+		node = Child( t );
+
+		if ( !node )
+		{
+			break;
+		}
+	}
+
+	return node;
 }
 
 // LeafNode
