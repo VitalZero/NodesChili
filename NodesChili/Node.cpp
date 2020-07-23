@@ -21,14 +21,14 @@ Node* Node::Print( )
 		if ( GetType() == NodeType::Branch )
 		{
 			// It's a branch!
-			std::cout << GetName() << ", " << GetTypeName()
+			std::cout << GetLevel() << ".-" << GetName() << ", "
 				<< ": $ " << GetTotal() << std::endl;
 
 			if ( ((BranchNode*)this)->Size() > 0 )
 			{
 				for ( size_t i = 0; i < ((BranchNode*)this)->Size(); ++i )
 				{
-					std::cout << "..";
+					//std::cout << "..";
 
 					Child( i )->Print();
 				}
@@ -39,7 +39,7 @@ Node* Node::Print( )
 		else
 		{
 			// It's a leaf!
-			std::cout << ".." << ((LeafNode*)this)->GetData() << " / " << ((LeafNode*)this)->GetName() 
+			std::cout << GetLevel() << ".-" << ((LeafNode*)this)->GetData() << " / " << ((LeafNode*)this)->GetName()
 				<< ": $" << ((LeafNode*)this)->GetTotal() << std::endl;
 
 			return nullptr;
@@ -58,6 +58,8 @@ BranchNode::BranchNode( const std::string& name )
 
 void BranchNode::AddChild( std::unique_ptr<Node> node )
 {
+	node->Level(level + 1);
+
 	children.emplace_back( std::move( node ) );
 }
 

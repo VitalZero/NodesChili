@@ -20,11 +20,14 @@ public:
 	std::string GetTypeName() const { return typeName[(int)type]; }
 	NodeType GetType() const { return type; }
 	Node* Print();
+	int GetLevel() { return level; }
+	void Level( int level ) { this->level = level; }
 
 protected:
 	NodeType type;
 	std::string name;
 	const std::string typeName[2] = { "Branch", "Leaf" };
+	int level = 0;
 };
 
 class BranchNode : public Node
