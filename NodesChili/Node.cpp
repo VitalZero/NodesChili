@@ -39,7 +39,8 @@ Node* Node::Print( )
 		else
 		{
 			// It's a leaf!
-			std::cout << GetLevel() << ".-" << ((LeafNode*)this)->GetData() << " / " << ((LeafNode*)this)->GetName()
+			std::cout << GetLevel() << ".-" << ((LeafNode*)this)->GetData().GetConcept() 
+				<< " / " << ((LeafNode*)this)->GetName()
 				<< ": $" << ((LeafNode*)this)->GetTotal() << std::endl;
 
 			return nullptr;
@@ -63,10 +64,10 @@ void BranchNode::AddChild( std::unique_ptr<Node> node )
 	children.emplace_back( std::move( node ) );
 }
 
-int BranchNode::GetTotal()
+double BranchNode::GetTotal()
 {
-	return std::accumulate( children.begin(), children.end(), 0,
-		[]( int accumulator, auto& c ) {
+	return std::accumulate( children.begin(), children.end(), 0.0,
+		[]( double accumulator, auto& c ) {
 			return accumulator + c->GetTotal();
 		} );
 }
@@ -116,10 +117,7 @@ Node * BranchNode::URI( const std::string & path )
 }
 
 // LeafNode
-LeafNode::LeafNode( const std::string& name, int total, const std::string& data )
-{
-	type = NodeType::Leaf;
-	this->name = name;
-	this->total = total;
-	this->data = data;
-}
+LeafNode::LeafNode( const Invoice& invoice )
+	:
+	invoice(invoice)
+{}

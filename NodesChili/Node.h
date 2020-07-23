@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "Invoice.h"
 
 class Node
 {
@@ -10,10 +11,10 @@ public:
 
 public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
-	virtual Node* Child( size_t index ) { return nullptr; }
+	virtual Node* Child( size_t index = 0) { return nullptr; }
 	virtual Node* Child( const std::string& name ) { return nullptr; }
 	virtual Node* URI( const std::string& path ) { return nullptr; }
-	virtual int GetTotal() = 0;
+	virtual double GetTotal() = 0;
 
 public:
 	std::string GetName() const { return name; }
@@ -35,8 +36,8 @@ class BranchNode : public Node
 public:
 	BranchNode( const std::string& name );
 	void AddChild( std::unique_ptr<Node> node );
-	int GetTotal() override;
-	Node* Child( size_t index ) override { return children.at( index ).get(); }
+	double GetTotal() override;
+	Node* Child( size_t index = 0) override { return children.at( index ).get(); }
 	Node* Child( const std::string& name ) override;
 	Node* URI( const std::string& path ) override;
 	size_t Size() const { return children.size(); }
@@ -48,11 +49,11 @@ private:
 class LeafNode : public Node
 {
 public:
-	LeafNode( const std::string& name, int total, const std::string& data );
-	int GetTotal() override { return total; }
-	std::string GetData() const { return data; }
+	LeafNode( const Invoice& invoice );
+	double GetTotal() override { return invoice.GetAmount(); }
+	const Invoice& GetData() const { return invoice; }
+	const Invoice& GetInvoice() const { return invoice; }
 
 private:
-	int total;
-	std::string data;
+	Invoice invoice;
 };
