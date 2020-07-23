@@ -41,6 +41,7 @@ Node* PrintTree(const Node* node)
 
 int main()
 {
+	// Another way to add items and subitems
 	//std::unique_ptr<Node> root = std::make_unique<BranchNode>( "THIS IS THE ROOT" );
 	//std::unique_ptr<Node> category = std::make_unique<BranchNode>( "FIRST CATEGORY" );
 	//std::unique_ptr<Node> subCategory = std::make_unique<BranchNode>( "First subcategory" );
@@ -101,16 +102,28 @@ int main()
 
 	category->AddChild( std::make_unique<BranchNode>( "Pumps" ) );
 	category = nullptr;
+	subCategory = nullptr;
 
-	std::cout << "\nCon la funcion propia de la clase:" << std::endl;
-
+	// print from root, all the way up
 	root->Print();
 
-	std::cout << "\nAhora desde el primer descendiente, funcion miembro:" << std::endl;
+	// test URI handler
+	std::string uri = "direction/safety/f1020";
+	Node* test = root->URI( uri );
 
-	root->Child( 0 )->Print();
-
-	Node* test = root->URI( "direction.safety.f1020" );
+	if ( test )
+	{
+		if ( test->GetType() == Node::NodeType::Leaf )
+		{
+			std::cout << "\n\nYay!, found:\n" << ((LeafNode*)test)->GetName() << ", "
+				<< ((LeafNode*)test)->GetData() << ": $ " 
+				<< ((LeafNode*)test)->GetTotal() << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "didn't find URI: " << uri << std::endl;
+	}
 
 	std::cin.get();
 

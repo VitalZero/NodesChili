@@ -88,7 +88,7 @@ Node * BranchNode::URI( const std::string & path )
 
 	std::string tmp;
 	std::vector<std::string> tokens;
-	while ( std::getline( iss, tmp, '.' ) )
+	while ( std::getline( iss, tmp, '/' ) )
 	{
 		tokens.push_back( std::move( tmp ) );
 	}
@@ -98,11 +98,11 @@ Node * BranchNode::URI( const std::string & path )
 		return nullptr;
 	}
 
-	Node* node = nullptr;
+	Node* node = this;
 
 	for ( auto& t : tokens )
 	{
-		node = Child( t );
+		node = node->Child( t );
 
 		if ( !node )
 		{
