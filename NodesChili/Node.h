@@ -7,7 +7,7 @@
 class Node
 {
 public:
-	enum class NodeType { Branch, Leaf };
+	enum class NodeType { NA = -1, Branch, Leaf };
 
 public:
 	virtual void AddChild( std::unique_ptr<Node> node ) {}
@@ -25,7 +25,7 @@ public:
 	void Level( int level ) { this->level = level; }
 
 protected:
-	NodeType type;
+	NodeType type = NodeType::NA;
 	std::string name;
 	const std::string typeName[2] = { "Branch", "Leaf" };
 	int level = 0;

@@ -1,45 +1,6 @@
 #include <iostream>
 #include "Node.h"
 
-Node* PrintTree(const Node* node)
-{
-	if ( node )
-	{
-		if ( node->GetType() == Node::NodeType::Branch )
-		{
-			// It's a branch!
-			BranchNode* branch = (BranchNode*)node;
-
-			std::cout << branch->GetName() << ", " << branch->GetTypeName()
-				<< ": $ " << branch->GetTotal() << std::endl;
-
-			if ( branch->Size() > 0 )
-			{
-				for ( size_t i = 0; i < branch->Size(); ++i )
-				{
-					std::cout << "..";
-
-					PrintTree( branch->Child( i ));
-				}
-			}
-
-			return nullptr;
-		}
-		else
-		{
-			// It's a leaf!
-			LeafNode* leaf = (LeafNode*)node;
-
-			std::cout << ".." << leaf->GetData().GetConcept() << " / " << leaf->GetName()  
-				<< ": $" << leaf->GetTotal() << std::endl;
-
-			return nullptr;
-		}
-	}
-
-	return nullptr;
-}
-
 int main()
 {
 	BranchNode root( "PETTY CASH" );
@@ -169,3 +130,42 @@ int main()
 	//{
 	//	std::cout << "didn't find URI: " << uri << std::endl;
 	//}
+
+//Node* PrintTree(const Node* node)
+//{
+//	if ( node )
+//	{
+//		if ( node->GetType() == Node::NodeType::Branch )
+//		{
+//			// It's a branch!
+//			BranchNode* branch = (BranchNode*)node;
+//
+//			std::cout << branch->GetName() << ", " << branch->GetTypeName()
+//				<< ": $ " << branch->GetTotal() << std::endl;
+//
+//			if ( branch->Size() > 0 )
+//			{
+//				for ( size_t i = 0; i < branch->Size(); ++i )
+//				{
+//					std::cout << "..";
+//
+//					PrintTree( branch->Child( i ));
+//				}
+//			}
+//
+//			return nullptr;
+//		}
+//		else
+//		{
+//			// It's a leaf!
+//			LeafNode* leaf = (LeafNode*)node;
+//
+//			std::cout << ".." << leaf->GetData().GetConcept() << " / " << leaf->GetName()  
+//				<< ": $" << leaf->GetTotal() << std::endl;
+//
+//			return nullptr;
+//		}
+//	}
+//
+//	return nullptr;
+//}
